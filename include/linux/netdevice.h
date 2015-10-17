@@ -106,6 +106,8 @@ struct wireless_dev;
 /* Driver transmit return codes */
 #define NETDEV_TX_MASK		0xf0
 
+
+
 enum netdev_tx {
 	__NETDEV_TX_MIN	 = INT_MIN,	/* make sure enum is signed */
 	NETDEV_TX_OK	 = 0x00,	/* driver took care of packet */
@@ -364,6 +366,8 @@ enum gro_result {
 	GRO_NORMAL,
 	GRO_DROP,
 };
+
+#include_next <linux/netdevice.h>
 typedef enum gro_result gro_result_t;
 
 /*
@@ -519,7 +523,6 @@ static inline void napi_synchronize(const struct napi_struct *n)
 
 enum netdev_queue_state_t {
 	__QUEUE_STATE_DRV_XOFF,
-	__QUEUE_STATE_STACK_XOFF,
 	__QUEUE_STATE_FROZEN,
 #define QUEUE_STATE_ANY_XOFF ((1 << __QUEUE_STATE_DRV_XOFF)		| \
 			      (1 << __QUEUE_STATE_STACK_XOFF))
@@ -2509,11 +2512,7 @@ extern void		ether_setup(struct net_device *dev);
 extern struct net_device *alloc_netdev_mqs(int sizeof_priv, const char *name,
 				       void (*setup)(struct net_device *),
 				       unsigned int txqs, unsigned int rxqs);
-#define alloc_netdev(sizeof_priv, name, setup) \
-	alloc_netdev_mqs(sizeof_priv, name, setup, 1, 1)
 
-#define alloc_netdev_mq(sizeof_priv, name, setup, count) \
-	alloc_netdev_mqs(sizeof_priv, name, setup, count, count)
 
 extern int		register_netdev(struct net_device *dev);
 extern void		unregister_netdev(struct net_device *dev);

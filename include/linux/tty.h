@@ -43,6 +43,7 @@
 #include <linux/tty_driver.h>
 #include <linux/tty_ldisc.h>
 #include <linux/mutex.h>
+#include_next <linux/tty.h>
 
 
 
