@@ -11,7 +11,6 @@ struct net;
 struct completion;
 struct mm_struct;
 
-
 /*
  * The proc filesystem constants/structures
  */
@@ -100,7 +99,6 @@ struct vmcore {
 	unsigned long long size;
 	loff_t offset;
 };
-
 
 #ifdef CONFIG_PROC_FS
 
@@ -277,7 +275,10 @@ struct proc_inode {
 	struct inode vfs_inode;
 };
 
-#include_next <linux/proc_fs.h>
+static inline struct proc_inode *PROC_I(const struct inode *inode)
+{
+	return container_of(inode, struct proc_inode, vfs_inode);
+}
 
 static inline struct proc_dir_entry *PDE(const struct inode *inode)
 {
